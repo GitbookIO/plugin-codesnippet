@@ -2,7 +2,7 @@
     "name": "gitbook-plugin-codesnippet",
     "description": "Easily include code snippets in your gitbook",
     "main": "index.js",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "engines": {
         "gitbook": ">=2.5.0"
     },
