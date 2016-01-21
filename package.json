@@ -1,0 +1,25 @@
+{
+    "name": "gitbook-plugin-codesnippet",
+    "description": "Easily include code snippets in your gitbook",
+    "main": "index.js",
+    "version": "0.0.0",
+    "engines": {
+        "gitbook": ">=2.5.0"
+    },
+    "homepage": "https://github.com/GitbookIO/plugin-codesnippet",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/GitbookIO/plugin-codesnippet.git"
+    },
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/GitbookIO/plugin-codesnippet/issues"
+    },
+    "devDependencies": {
+        "gitbook-tester": "1.2.0",
+        "mocha": "^2.3.4"
+    },
+    "scripts": {
+        "test": "node_modules/.bin/mocha --reporter spec --timeout 15000"
+    }
+}
