@@ -1,6 +1,6 @@
 # Include code snippets in your GitBook
 
-This plugins makes it easy to import files as code blocks in your GitBook.
+This plugins makes it easy to import code files or uses variables in codeblocks in your GitBook.
 
 ### How to use it?
 
@@ -26,4 +26,15 @@ Using a specific language:
 This is a code snippet, display as HTML:
 
 {% codesnippet "./myfile.ejs", language="html" %}{% endcodesnippet %}
+```
+
+Code blocks with templating syntax:
+
+
+```md
+This is a code snippet, display as HTML:
+
+{% codesnippet %}
+curl {{ book.hostname|d("http://localhost") }}/myapi
+{% endcodesnippet %}
 ```

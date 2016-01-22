@@ -46,4 +46,25 @@ describe('codesnippet', function() {
                 assert.equal(codeBlock.text(), 'test');
             });
     });
+
+    it('should accept inner content', function() {
+        return tester.builder()
+            .withContent('#test me\n\n{% codesnippet %}this is a {{ book.var|d("variable") }}{% endcodesnippet %}')
+            .withLocalPlugin(path.join(__dirname, '..'))
+            .withBookJson({
+                gitbook: pkg.engines.gitbook,
+                "plugins": ["codesnippet"]
+            })
+            .withFile('myfile.js', 'test')
+            .create()
+            .then(function(result) {
+                var index = result.get('index.html');
+                var $ = index.$;
+
+                var codeBlock = $('code');
+
+                assert.equal(codeBlock.length, 1);
+                assert.equal(codeBlock.text(), 'this is a variable');
+            });
+    });
 });
