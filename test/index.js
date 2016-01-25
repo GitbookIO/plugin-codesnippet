@@ -26,6 +26,27 @@ describe('codesnippet', function() {
             });
     });
 
+    it('should include an url', function() {
+        return tester.builder()
+            .withContent('#test me\n\n{% codesnippet "https://gist.githubusercontent.com/magnetikonline/5274656/raw/6c7281322dc82145f4648891e66fdda02503c881/README.md" %}{% endcodesnippet %}')
+            .withLocalPlugin(path.join(__dirname, '..'))
+            .withBookJson({
+                gitbook: pkg.engines.gitbook,
+                "plugins": ["codesnippet"]
+            })
+            .withFile('myfile.js', 'test')
+            .create()
+            .then(function(result) {
+                var index = result.get('index.html');
+                var $ = index.$;
+
+                var codeBlock = $('code[class="lang-md"]');
+
+                assert.equal(codeBlock.length, 1);
+                assert(codeBlock.text().length > 0);
+            });
+    });
+
     it('should accept a specific language', function() {
         return tester.builder()
             .withContent('#test me\n\n{% codesnippet "./myfile.js", language="hello" %}{% endcodesnippet %}')
