@@ -88,4 +88,25 @@ describe('codesnippet', function() {
                 assert.equal(codeBlock.text(), 'this is a variable');
             });
     });
+
+    it('should slice lines', function() {
+        return tester.builder()
+            .withContent('#test me\n\n{% codesnippet "./myfile.js", lines="2:4" %}{% endcodesnippet %}')
+            .withLocalPlugin(path.join(__dirname, '..'))
+            .withBookJson({
+                gitbook: pkg.engines.gitbook,
+                "plugins": ["codesnippet"]
+            })
+            .withFile('myfile.js', 'test\ntest 2\ntest 3\ntest 4')
+            .create()
+            .then(function(result) {
+                var index = result.get('index.html');
+                var $ = index.$;
+
+                var codeBlock = $('code[class="lang-js"]');
+
+                assert.equal(codeBlock.length, 1);
+                assert.equal(codeBlock.text(), 'test 2\ntest 3');
+            });
+    });
 });

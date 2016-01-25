@@ -28,8 +28,15 @@ This is a code snippet, display as HTML:
 {% codesnippet "./myfile.ejs", language="html" %}{% endcodesnippet %}
 ```
 
-Code blocks with templating syntax:
+Include a range of lines:
 
+```md
+This is a code snippet, display as HTML:
+
+{% codesnippet "./myfile.ejs", lines="2:5" %}{% endcodesnippet %}
+```
+
+Code blocks with templating syntax:
 
 ```md
 This is a code snippet, display as HTML:
