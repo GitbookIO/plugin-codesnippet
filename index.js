@@ -17,7 +17,7 @@ function rangeToLines(range) {
 
     return {
         start: Number(range[0]) - 1,
-        end: Number(range[1]) - 1
+        end: Number(range[1])
     }
 }
 
