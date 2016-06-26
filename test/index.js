@@ -97,7 +97,28 @@ describe('codesnippet', function() {
                 gitbook: pkg.engines.gitbook,
                 "plugins": ["codesnippet"]
             })
-            .withFile('myfile.js', 'test\ntest 2\ntest 3\ntest 4')
+            .withFile('myfile.js', 'test\ntest 2\ntest 3\ntest 4\ntest5')
+            .create()
+            .then(function(result) {
+                var index = result.get('index.html');
+                var $ = index.$;
+
+                var codeBlock = $('code[class="lang-js"]');
+
+                assert.equal(codeBlock.length, 1);
+                assert.equal(codeBlock.text(), 'test 2\ntest 3');
+            });
+    });
+
+    it('should slice empty lines', function() {
+        return tester.builder()
+            .withContent('#test me\n\n{% codesnippet "./myfile.js", lines="4:6" %}{% endcodesnippet %}')
+            .withLocalPlugin(path.join(__dirname, '..'))
+            .withBookJson({
+                gitbook: pkg.engines.gitbook,
+                "plugins": ["codesnippet"]
+            })
+            .withFile('myfile.js', 'test\n\n\ntest 2\ntest 3\ntest 4\ntest5')
             .create()
             .then(function(result) {
                 var index = result.get('index.html');

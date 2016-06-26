@@ -5,7 +5,8 @@ var path = require('path');
 var request = require('request');
 
 function codeblock(language, content) {
-    return '<pre><code class="lang-' + language + '">' + content + '</code></pre>';
+    var cleaned = content.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return '<pre><code class="lang-' + language + '">' + cleaned + '</code></pre>';
 }
 
 // Convert a range to a {start,end} object
@@ -17,7 +18,7 @@ function rangeToLines(range) {
 
     return {
         start: Number(range[0]) - 1,
-        end: Number(range[1]) - 1
+        end: Number(range[1])
     }
 }
 
@@ -59,7 +60,7 @@ module.exports = {
                 // Return the html content
                 .then(function(content) {
                     if (range) {
-                        var lines = content.match(/[^\r\n]+/g);
+                        var lines = content.split(/\r?\n/);
                         lines = lines.slice(range.start, range.end);
                         content = lines.join('\n');
                     }
