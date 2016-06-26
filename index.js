@@ -5,7 +5,8 @@ var path = require('path');
 var request = require('request');
 
 function codeblock(language, content) {
-    return '<pre><code class="lang-' + language + '">' + content + '</code></pre>';
+    var cleaned = content.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return '<pre><code class="lang-' + language + '">' + cleaned + '</code></pre>';
 }
 
 // Convert a range to a {start,end} object
